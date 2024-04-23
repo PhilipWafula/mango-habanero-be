@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mangohabanero/fe:latest, mangohabanero/fe:${{ github.sha }}
+          tags: mangohabanero/be:latest, mangohabanero/be:${{ github.sha }}
 
 
   release:
