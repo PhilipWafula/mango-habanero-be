@@ -1,32 +1,43 @@
 [tool.poetry]
-name = "mango-habanero-be"
-version = "0.1.0"
-description = "Backend for Mango Habanero."
+name = "mh-backend"
 authors = ["Mango Habanero <main@mango-habanero.dev>"]
-readme = "README.md"
-packages = [{include = "mango_habanero_be"}]
+description = "Backend for Mango Habanero."
+homepage = "https://mango-habanero.dev"
+packages = [
+    { include = "app", from = "." }
+]
+repository = "https://github.com/PhilipWafula/mango-habanero-be"
+version = "0.0.1"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+click = "^8.1.7"
 fastapi = "^0.110.2"
 uvicorn = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.9.0"
+pre-commit = "^3.7.0"
+python-semantic-release = "^9.5.0"
 ruff = "^0.4.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry.scripts]
+mhcli = "app.cli:entrypoint"
+
 [tool.mypy]
 strict = true
 
 [tool.ruff]
-fixable = ["ALL"]
 line-length = 88
 target-version = "py312"
 
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
 
 [tool.ruff.lint]
 select = [
@@ -43,4 +54,16 @@ ignore = [
     "B008",  # do not perform function calls in argument defaults
     "W191",  # indentation contains tabs
     "B904",  # Allow raising exceptions without from e, for HTTPException
+]
+
+[tool.semantic_release]
+branch = "main"
+major_on_zero = false
+upload_to_pypi = false
+upload_to_release = true
+version_variable = [
+    "app/__init__.py:__version__"
+]
+version_toml = [
+    "pyproject.toml:tool.poetry.version"
 ]
