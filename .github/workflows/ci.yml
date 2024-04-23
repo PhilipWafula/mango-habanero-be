@@ -45,6 +45,8 @@ jobs:
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # python-sematic-release needs full history to determine whether to maker a release.
 
       - name: Set up python.
         uses: actions/setup-python@v5
