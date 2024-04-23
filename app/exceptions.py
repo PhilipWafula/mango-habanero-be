@@ -1,0 +1,2 @@
+class MangoHabaneroException(Exception):
+    pass
