@@ -7,7 +7,7 @@ packages = [
     { include = "app", from = "." }
 ]
 repository = "https://github.com/PhilipWafula/mango-habanero-be"
-version = "0.0.1"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.12"
