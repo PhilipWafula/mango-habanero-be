@@ -34,8 +34,6 @@ jobs:
           fi
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "Building version: $version 🛠️."
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   build-push:
     needs: [ versioning ]
