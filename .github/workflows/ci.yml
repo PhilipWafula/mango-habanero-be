@@ -13,7 +13,8 @@ jobs:
     environment: production
     permissions:
       contents: read
-      id-token: write
+    outputs:
+      BUILD_VERSION: ${{ steps.determine-version.outputs.version }}
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
@@ -24,15 +25,17 @@ jobs:
         uses: ./.github/actions/python
 
       - name: Determine next version.
-        id: version
+        id: determine-version
         run: |
           version=$(poetry run semantic-release version --print-tag)
           if [ -z "$version" ]; then
             echo "Failed to determine the version tag. Exiting with error."
             exit 1
           fi
-          echo "version=$version" >> $GITHUB_ENV
+          echo "version=$version" >> $GITHUB_OUTPUT
           echo "Building version: $version 🛠️."
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   build-push:
     needs: [ versioning ]
@@ -40,8 +43,6 @@ jobs:
     environment: production
     permissions:
       contents: read
-    outputs:
-      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
@@ -62,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mangohabanero/be:latest, mangohabanero/be:${{ needs.versioning.outputs.version }}
+          tags: mangohabanero/be:latest, mangohabanero/be:${{ needs.versioning.outputs.BUILD_VERSION }}
 
   release:
     runs-on: ubuntu-latest
