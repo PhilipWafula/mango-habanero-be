@@ -25,7 +25,7 @@ jobs:
 
       - name: Determine next version.
         id: version
-        run: echo ::set-output name=version::$(semantic-release version --print)
+        run: echo "version=$(poetry run semantic-release version --print)" >> $GITHUB_OUTPUT
 
       - name: Setup QEMU.
         uses: docker/setup-qemu-action@v3
