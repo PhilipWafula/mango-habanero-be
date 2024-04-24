@@ -1,4 +1,4 @@
-FROM python:3.12.3-slim AS base
+FROM python:3.12.3-alpine AS base
 
 # set the working directory.
 WORKDIR /usr/src/
@@ -12,7 +12,7 @@ ARG SOURCE_COMMIT
 LABEL revision=${SOURCE_COMMIT:-unknown}
 
 # create a group and user.
-RUN addgroup --system app && adduser --system --group app
+RUN addgroup -S app && adduser -S app -G app
 
 # set environment variables.
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -21,8 +21,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PATH="/root/.local/bin:$PATH"
 
 # install system dependencies.
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
-    && apt clean
+RUN apk update && apk add --no-cache curl \
+    && rm -rf /etc/apk/cache/*
 
 # install poetry.
 RUN curl -sSL https://install.python-poetry.org | python3 -
@@ -37,6 +37,9 @@ RUN poetry install --no-ansi --no-dev --no-interaction
 
 # grant permissions.
 RUN chown -R app:app /usr/src/
+
+# switch to the app user.
+USER app
 
 # set the entrypoint.
 EXPOSE 8000
