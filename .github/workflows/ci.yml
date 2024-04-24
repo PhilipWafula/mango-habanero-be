@@ -8,7 +8,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup-and-build:
+  versioning:
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout code.
+        uses: actions/checkout@v4
+
+      - name: Setup python and install dependencies.
+        uses: ./.github/actions/python
+
+      - name: Determine next version.
+        id: version
+        run: |
+          echo "version=$(poetry run semantic-release version --print)" >> $GITHUB_OUTPUT
+          echo "Building version: $version 🛠️."
+
+  build-push:
+    needs: [ versioning ]
     runs-on: ubuntu-latest
     environment: production
     permissions:
@@ -19,13 +39,6 @@ jobs:
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
-
-      - name: Setup python and install dependencies.
-        uses: ./.github/actions/python
-
-      - name: Determine next version.
-        id: version
-        run: echo "version=$(poetry run semantic-release version --print)" >> $GITHUB_OUTPUT
 
       - name: Setup QEMU.
         uses: docker/setup-qemu-action@v3
@@ -43,14 +56,15 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mangohabanero/be:latest, mangohabanero/be:${{ steps.version.outputs.version }}
+          tags: mangohabanero/be:latest, mangohabanero/be:${{ needs.versioning.outputs.version }}
 
   release:
     runs-on: ubuntu-latest
-    needs: [ setup-and-build ]
+    needs: [ build-push ]
     environment: production
     permissions:
       contents: write
+      id-token: write
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
