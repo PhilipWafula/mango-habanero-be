@@ -13,10 +13,11 @@ jobs:
     environment: production
     permissions:
       contents: read
-      id-token: write
     steps:
       - name: Checkout code.
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # python-sematic-release requires access full history.
 
       - name: Setup python and install dependencies.
         uses: ./.github/actions/python
@@ -33,7 +34,6 @@ jobs:
     environment: production
     permissions:
       contents: read
-      id-token: write
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -69,7 +69,7 @@ jobs:
       - name: Checkout code.
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Needed for full history.
+          fetch-depth: 0 # python-sematic-release requires access full history.
 
       - name: Setup python and install dependencies.
         uses: ./.github/actions/python
