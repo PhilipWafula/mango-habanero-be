@@ -42,4 +42,4 @@ RUN chown -R app:app /usr/src/
 EXPOSE 8000
 
 # run the application.
-CMD ["mhcli", "server", "start", "app.main:app", "--host=0.0.0.0", "--port=8000"]
+CMD ["mhcli", "server", "start", "--interface",  "asgi", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

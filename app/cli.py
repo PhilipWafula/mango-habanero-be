@@ -1,5 +1,7 @@
+import multiprocessing
+import subprocess
+
 import click
-import uvicorn
 
 
 @click.group()
@@ -14,19 +16,48 @@ def mh_server():
     pass
 
 
-@mh_server.command("develop")
+@mh_server.command("development")
+@click.argument("app", required=True)
 @click.option(
     "--log-level",
     type=click.Choice(["debug", "info", "warning", "error", "critical"]),
     default="debug",
     help="Set the log level.",
 )
-def run_server(log_level: str):
+@click.option(
+    "--interface",
+    type=click.Choice(["asgi", "rsgi", "wsgi"]),
+    default="asgi",
+    help="Set the interface.",
+)
+def run_dev_server(app, interface: str, log_level: str):
     """Start the development server."""
-    uvicorn.run("app.main:app", reload=True, log_level=log_level)
+    threads = multiprocessing.cpu_count()
+    subprocess.run(
+        [
+            "granian",
+            "--interface",
+            interface,
+            app,
+            "--log-level",
+            log_level,
+            "--threads",
+            str(threads),
+        ]
+    )
 
 
-mh_server.add_command(uvicorn.main, name="start")
+@mh_server.command(
+    "start",
+    context_settings={
+        "ignore_unknown_options": True,
+        "allow_extra_args": True,
+    },
+)
+@click.pass_context
+def start(context: click.Context):
+    """Start the server."""
+    subprocess.run(["granian"] + context.args)
 
 
 def entrypoint():
