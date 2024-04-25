@@ -16,7 +16,7 @@ fastapi = "^0.110.2"
 granian = "^1.2.3"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.9.0"
+mypy = "^1.10.0"
 pre-commit = "^3.7.0"
 python-semantic-release = "^9.5.0"
 ruff = "^0.4.1"
