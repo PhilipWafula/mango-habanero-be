@@ -4,16 +4,18 @@ authors = ["Mango Habanero <main@mango-habanero.dev>"]
 description = "Backend for Mango Habanero."
 homepage = "https://mango-habanero.dev"
 packages = [
-    { include = "app", from = "." }
+    { include = "src", from = "." }
 ]
 repository = "https://github.com/PhilipWafula/mango-habanero-be"
 version = "0.2.0"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+asgi-correlation-id = "^4.3.1"
 click = "^8.1.7"
 fastapi = "^0.110.2"
-granian = "^1.2.3"
+granian = {extras = ["reload"], version = "^1.2.3"}
+python = "^3.12"
+structlog = "^24.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.9.0"
@@ -26,7 +28,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-mhcli = "app.cli:entrypoint"
+mhcli = "src.cli:entrypoint"
 
 [tool.mypy]
 strict = true
