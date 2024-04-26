@@ -43,6 +43,7 @@ def run_dev_server(app, interface: str, log_level: str):
             log_level,
             "--threads",
             str(threads),
+            "--reload",
         ]
     )
 
@@ -61,7 +62,7 @@ def start(context: click.Context):
 
 
 def entrypoint():
-    from app.exceptions import MangoHabaneroException
+    from src.exceptions import MangoHabaneroException
 
     try:
         mh_cli()
