@@ -2,9 +2,92 @@
 
 
 
+## v0.4.0 (2024-04-26)
+
+### Chore
+
+* chore(CI-CD): Triages failure in bot bypass to rule-sets.
+
+- Refactors app-id and private-key arguments to address deprecation warning.
+- Removes unrecognized persist credentials argument from semantic release step. ([`f9cee96`](https://github.com/mango-habanero/mango-habanero-be/commit/f9cee96c0234d3b4466d2511ab9a18f456e27ee5))
+
+* chore(docker): Matches renaming of app module to src. ([`7ac0a95`](https://github.com/mango-habanero/mango-habanero-be/commit/7ac0a95eaaf81ea26815c12eb2165cf6c3af7351))
+
+* chore(dependencies): Adds logging and http request related dependencies.
+
+- Adds reload functionality to granian for development.
+- Adds asgi-correlation-id for adding correlation ids for all incoming
+requests.
+- Adds structlog for logging. ([`85d802c`](https://github.com/mango-habanero/mango-habanero-be/commit/85d802c0ff806174c0681bc3ed451eb81382857e))
+
+### Feature
+
+* feat(releases): Integrates mango-habanero-bot to safely bypass branch protection ruleset. (#19) ([`03eb962`](https://github.com/mango-habanero/mango-habanero-be/commit/03eb962b27e0eb93cc202fb42cf502b44388dfa8))
+
+* feat(middleware): Adds a custom http request logging middleware.
+
+- Adds contextual information for API http request logging. ([`dc0c0bc`](https://github.com/mango-habanero/mango-habanero-be/commit/dc0c0bcd7355b49e3f30b9838d8190d4fe59521f))
+
+* feat(logging): Implements structlog for structure logging of within application.
+
+- Adds a generic system logger that implements structlog logging. ([`75ddd59`](https://github.com/mango-habanero/mango-habanero-be/commit/75ddd59e55ce8e85e624ed32a918e5392b0147ca))
+
+### Refactor
+
+* refactor(structure): Moves application creation and configuration into app module. ([`5558504`](https://github.com/mango-habanero/mango-habanero-be/commit/5558504d8bc758ef3356b61e700e566daa409a8c))
+
+* refactor(structure): Renames app directory to src. ([`71b965b`](https://github.com/mango-habanero/mango-habanero-be/commit/71b965ba324e124c7f7d99403e83d0e8daa297d9))
+
+### Unknown
+
+* Merge pull request #18 from mango-habanero/philip/feat/logging
+
+Enhance logging, refactor project structure, and update development settings. ([`584376e`](https://github.com/mango-habanero/mango-habanero-be/commit/584376eb39e546783e8879a21389f28c9cd9e7bd))
+
+* Merge &#39;https://github.com/mango-habanero/mango-habanero-be&#39; main into philip/feat/logging ([`4ccd4ad`](https://github.com/mango-habanero/mango-habanero-be/commit/4ccd4adf6536d812bcf9c089603b7ac3a2c2608d))
+
+* ⬆ Bump ruff from 0.4.1 to 0.4.2 (#17)
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.4.1 to 0.4.2.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.4.1...v0.4.2)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt;
+Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt; ([`560a58a`](https://github.com/mango-habanero/mango-habanero-be/commit/560a58ae550ea2ea917a9ca1e6e5ff439bedcf08))
+
+* Merge pull request #16 from mango-habanero/dependabot/pip/mypy-1.10.0
+
+⬆ Bump mypy from 1.9.0 to 1.10.0 ([`70c602f`](https://github.com/mango-habanero/mango-habanero-be/commit/70c602f4f5d8efa8585f8599e83fda39ea29984b))
+
+* ⬆ Bump mypy from 1.9.0 to 1.10.0
+
+Bumps [mypy](https://github.com/python/mypy) from 1.9.0 to 1.10.0.
+- [Changelog](https://github.com/python/mypy/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python/mypy/compare/1.9.0...v1.10.0)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`81d9648`](https://github.com/mango-habanero/mango-habanero-be/commit/81d9648ad3cadb7fccd96a5fab9234fd950cbc90))
+
+
 ## v0.3.0 (2024-04-24)
 
 ### Chore
+
+* chore(release): Release 0.3.0 🚀. ([`cb25093`](https://github.com/mango-habanero/mango-habanero-be/commit/cb25093c3405b5ceab57485b8bacd47fddc70d0f))
 
 * chore(CI-CD): Grant python-semantic-release access to full commit history. ([`fe3896f`](https://github.com/mango-habanero/mango-habanero-be/commit/fe3896f8948598a3f18dfda4a1f7cfa67f5e0be6))
 
