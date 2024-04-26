@@ -76,13 +76,14 @@ jobs:
         uses: actions/create-github-app-token@v1
         id: mh-bot-token
         with:
-            app_id: ${{ vars.MH_BOT_APP_ID }}
-            private_key: ${{ secrets.MH_BOT_PRIVATE_KEY }}
+            app-id: ${{ vars.MH_BOT_APP_ID }}
+            private-key: ${{ secrets.MH_BOT_PRIVATE_KEY }}
 
       - name: Checkout code.
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # python-sematic-release requires access full history.
+          token: ${{ steps.mh-bot-token.outputs.token }}
 
       - name: Setup python and install dependencies.
         uses: ./.github/actions/python
@@ -91,4 +92,3 @@ jobs:
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ steps.mh-bot-token.outputs.token }}
-          persist-credentials: false
