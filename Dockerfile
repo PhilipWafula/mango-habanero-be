@@ -1,7 +1,7 @@
 FROM python:3.12.3-alpine AS base
 
 # set the working directory.
-WORKDIR /usr/src/
+WORKDIR /app
 
 # add image metadata.
 LABEL maintainer="Mango Habanero <main@mango-habanero.dev>"
@@ -31,12 +31,12 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 COPY pyproject.toml poetry.lock ./
 
 # copy the project (done before install to ensure console scripts are available).
-COPY ./app /usr/src/app
+COPY ./src /app/src/
 
-RUN poetry install --no-ansi --no-dev --no-interaction
+RUN poetry install --no-ansi --no-interaction --only main
 
 # grant permissions.
-RUN chown -R app:app /usr/src/
+RUN chown -R app:app /app
 
 # switch to the app user.
 USER app
@@ -45,4 +45,4 @@ USER app
 EXPOSE 8000
 
 # run the application.
-CMD ["mhcli", "server", "start", "--interface",  "asgi", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["mhcli", "server", "start", "--interface",  "asgi", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
