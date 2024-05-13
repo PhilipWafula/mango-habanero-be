@@ -19,7 +19,7 @@ structlog = "^24.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.0"
-pre-commit = "^3.7.0"
+pre-commit = "^3.7.1"
 python-semantic-release = "^9.7.0"
 ruff = "^0.4.3"
 
