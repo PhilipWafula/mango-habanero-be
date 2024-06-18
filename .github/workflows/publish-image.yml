@@ -31,7 +31,7 @@ jobs:
         run: export DOCKER_CONTENT_TRUST=1
 
       - name: Build and push Docker image.
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: mangohabanero/be:latest, mangohabanero/be:${{ github.event.release.tag }}
